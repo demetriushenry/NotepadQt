@@ -5,6 +5,8 @@
 #include <QDir>
 #include <QTextStream>
 #include <QMessageBox>
+#include <QFont>
+#include <QFontDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -22,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionUndo->setIcon(QIcon::fromTheme("edit-undo"));
     ui->actionRedo->setIcon(QIcon::fromTheme("edit-redo"));
     ui->actionAbout_Notepad->setIcon(QIcon::fromTheme("help-about"));
+    ui->actionFont->setIcon(QIcon::fromTheme("format-text-bold"));
 }
 
 MainWindow::~MainWindow()
@@ -117,4 +120,14 @@ void MainWindow::on_actionAbout_Notepad_triggered()
     about_text += "Date: 17/03/2017\n";
     about_text += "App: Notepad Sample Qt (R)";
     QMessageBox::information(this, "About", about_text);
+}
+
+void MainWindow::on_actionFont_triggered()
+{
+    bool ok;
+    QFont font = QFontDialog::getFont(&ok, this);
+    if (ok)
+        ui->textEdit->setFont(font);
+    else
+        return;
 }
