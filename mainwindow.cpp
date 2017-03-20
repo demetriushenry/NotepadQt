@@ -7,6 +7,10 @@
 #include <QMessageBox>
 #include <QFont>
 #include <QFontDialog>
+#include <QColor>
+#include <QColorDialog>
+#include <QPrinter>
+#include <QPrintDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -24,7 +28,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionUndo->setIcon(QIcon::fromTheme("edit-undo"));
     ui->actionRedo->setIcon(QIcon::fromTheme("edit-redo"));
     ui->actionAbout_Notepad->setIcon(QIcon::fromTheme("help-about"));
-    ui->actionFont->setIcon(QIcon::fromTheme("format-text-bold"));
+    ui->actionFont->setIcon(QIcon::fromTheme("font-x-generic"));
+    ui->actionColor->setIcon(QIcon::fromTheme("format-text-strikethrough"));
+    ui->actionBackground_Color->setIcon(QIcon::fromTheme("accessories-text-editor"));
 }
 
 MainWindow::~MainWindow()
@@ -130,4 +136,40 @@ void MainWindow::on_actionFont_triggered()
         ui->textEdit->setFont(font);
     else
         return;
+}
+
+void MainWindow::on_actionColor_triggered()
+{
+    QColor color = QColorDialog::getColor(Qt::white, this, "Choose the color");
+    if (color.isValid())
+        ui->textEdit->setTextColor(color);
+    else
+        return;
+}
+
+void MainWindow::on_actionBackground_Color_triggered()
+{
+    QColor color = QColorDialog::getColor(Qt::white, this, "Choose the color");
+    if (color.isValid())
+        ui->textEdit->setTextBackgroundColor(color);
+    else
+        return;
+}
+
+void MainWindow::on_actionBackground_Page_Color_triggered()
+{
+    QColor color = QColorDialog::getColor(Qt::white, this, "Choose the color");
+    if (color.isValid())
+        ui->textEdit->setPalette(QPalette(color));
+    else
+        return;
+}
+
+void MainWindow::on_actionPrint_triggered()
+{
+    QPrinter printer;
+    printer.setPrinterName("Notepad Docname");
+    QPrintDialog dialog(&printer, this);
+    if (dialog.exec() == QDialog::Rejected) return;
+    ui->textEdit->print(&printer);
 }
