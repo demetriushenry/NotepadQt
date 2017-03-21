@@ -11,6 +11,7 @@
 #include <QColorDialog>
 #include <QPrinter>
 #include <QPrintDialog>
+#include "ICalc.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -31,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionFont->setIcon(QIcon::fromTheme("font-x-generic"));
     ui->actionColor->setIcon(QIcon::fromTheme("format-text-strikethrough"));
     ui->actionBackground_Color->setIcon(QIcon::fromTheme("accessories-text-editor"));
+    ICalc calc;
 }
 
 MainWindow::~MainWindow()
